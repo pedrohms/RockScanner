@@ -4,6 +4,7 @@ import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.display.MarkerOverlay;
 import journeymap.client.api.event.ClientEvent;
+import journeymap.client.api.event.DisplayUpdateEvent;
 import net.minecraft.client.Minecraft;
 import org.pessoal.rockscanner.RockScannerMod;
 import org.pessoal.rockscanner.util.saveddata.OverlaySavedData;
@@ -32,12 +33,20 @@ public class JourneyImpl implements IClientPlugin {
         return RockScannerMod.MODID;
     }
 
+    public void onDisplayUpdate(DisplayUpdateEvent displayUpdateEvent){
+        RockScannerMod.LOGGER.info("onEvent -> TYPE: {}", displayUpdateEvent.type);
+        switch(displayUpdateEvent.type){
+            case DISPLAY_UPDATE: {
+                onDisplayUpdated(displayUpdateEvent);
+            }
+        }
+    }
     @Override
     public void onEvent(ClientEvent clientEvent) {
         RockScannerMod.LOGGER.info("onEvent -> TYPE: {}", clientEvent.type);
         switch(clientEvent.type){
             case MAPPING_STARTED: {
-                onMappingStarted(clientEvent);
+//                onMappingStarted(clientEvent);
             }
             case MAPPING_STOPPED: {
                 onMappingStopped(clientEvent);
@@ -45,14 +54,17 @@ public class JourneyImpl implements IClientPlugin {
         }
     }
 
-    private void onMappingStarted(ClientEvent clientEvent) {
+
+    private void onDisplayUpdated(DisplayUpdateEvent displayUpdateEvent) {
 //        if(CLIENT_API.playerAccepts(RockScannerMod.MODID, DisplayType.Marker)){
-        System.out.println("onMappingStarted");
+        System.out.println("onDisplayUpdated");
         for(Map.Entry<UUID, List<MarkerOverlay>> markerList : RockScannerMod.getOverlayData().getOverlayList().entrySet()){
             try {
                 for(MarkerOverlay marker : markerList.getValue()){
-                    System.out.println("Marker: " + marker.getId());
-                    CLIENT_API.show(marker);
+                    if(!CLIENT_API.exists(marker)) {
+                        RockScannerMod.LOGGER.info("Marker: {}, X: {}, Z: {}, Y: {}", marker.getId(), marker.getPoint().getX(), marker.getPoint().getZ(), marker.getPoint().getY());
+                        CLIENT_API.show(marker);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

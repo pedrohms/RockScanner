@@ -55,7 +55,7 @@ public class MarkerListener implements IOverlayListener {
 
     @Override
     public boolean onMouseClick(UIState uiState, Point2D.Double aDouble, BlockPos blockPos, int i, boolean b) {
-        jwAPI.remove(markerOverlay);
+//        jwAPI.remove(markerOverlay);
         return true;
     }
 
@@ -68,8 +68,8 @@ public class MarkerListener implements IOverlayListener {
         double size = uiState.blockSize*8;
 
         markerOverlay.getIcon()
-                .setColor(color)
-                .setOpacity(opacity)
+//                .setColor(color)
+//                .setOpacity(opacity)
                 .setDisplayWidth(size)
                 .setDisplayHeight(size)
                 .setAnchorX(size/2)

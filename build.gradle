@@ -17,10 +17,10 @@ plugins {
 }
 
 apply plugin: 'org.spongepowered.mixin'
-apply from: 'https://raw.githubusercontent.com/GT-Reimagined/GradleScripts/main/repositories.gradle'
 
 repositories {
     // JourneyMap API releases are here
+    mavenCentral()
     maven {
         name = "JourneyMap (Public)"
         url = "https://jm.gserv.me/repository/maven-public/"
@@ -43,6 +43,7 @@ repositories {
     }
 }
 
+apply from: 'https://gist.githubusercontent.com/pedrohms/423c1dc00879e88cf4ba817f14ce26d4/raw/f5dfbec690044232a4bc8fef84f7432785b980da/repositories.gradle'
 var journeymap_api_version = "1.18.2-1.9-SNAPSHOT"
 
 group = mod_group_id

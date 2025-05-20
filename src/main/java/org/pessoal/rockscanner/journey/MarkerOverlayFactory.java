@@ -62,30 +62,26 @@ public class MarkerOverlayFactory {
                                 @NotNull BlockPos pos,
                                 int color) {
         MapImage emptyIcon = new MapImage(
-                new ResourceLocation(RockScannerMod.MODID, "textures/misc/ore.png"),
-                pos.getX(), pos.getY(), 512, 512,
+                new ResourceLocation(RockScannerMod.MODID, "textures/misc/blank.png"),
+                pos.getX(), pos.getY(), 1, 1,
                 color,
                 1.0f
         );
-        System.out.println("TESTES___");
-        System.out.println(new ResourceLocation(RockScannerMod.MODID, "textures/misc/ore.png"));
+        emptyIcon.setAnchorX(pos.getX());
+        emptyIcon.setAnchorY(pos.getY()+1);
         TextProperties textProperties = new TextProperties();
         textProperties.setColor(0xFFFFFF);
-        textProperties.setScale(1.0F);
+        textProperties.setScale(1.5F);
         textProperties.setBackgroundColor(0xAA000000);
 
-        MarkerOverlay markerOreVein = new MarkerOverlay(RockScannerMod.MODID, name, pos, emptyIcon);
+        BlockPos adjustPos = new BlockPos(pos.getX(), pos.getY()-5,pos.getZ());
+        MarkerOverlay markerOreVein = new MarkerOverlay(RockScannerMod.MODID, name, adjustPos, emptyIcon);
         markerOreVein.setTextProperties(textProperties);
-        markerOreVein.setLabel(label);
+        markerOreVein.setTitle(label);
         markerOreVein.setDimension(Level.OVERWORLD);
-        markerOreVein.setTitle(title);
+        markerOreVein.setLabel(title);
 //        markerOreVein.setOverlayGroupName(RockScannerMod.MODID);
         markerOreVein.setOverlayListener(new MarkerListener(JourneyImpl.CLIENT_API, markerOreVein, color, 1.0f));
-        try {
-            JourneyImpl.CLIENT_API.show(markerOreVein);
-        } catch (Exception e) {
-            RockScannerMod.LOGGER.error("{0}", e);
-        }
         return markerOreVein;
     }
 }

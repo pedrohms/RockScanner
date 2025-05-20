@@ -94,10 +94,10 @@ public class CustomEvents {
                         }
                         final ChunkPos f = finalChunk;
                         List<Waypoint> waypointList = JourneyImpl.CLIENT_API.getAllWaypoints().stream().filter(waypoint -> {
-                            if(waypoint.getPosition().getX() >= f.getMinBlockX() - (GTLibConfig.ORE_VEIN_MAX_SIZE.get() / 2 ) &&
-                                    waypoint.getPosition().getX() <= f.getMaxBlockX() + (GTLibConfig.ORE_VEIN_MAX_SIZE.get() / 2 ) &&
-                                waypoint.getPosition().getZ() >= f.getMinBlockZ() - (GTLibConfig.ORE_VEIN_MAX_SIZE.get() /2 ) &&
-                                    waypoint.getPosition().getZ() <= f.getMaxBlockZ() + (GTLibConfig.ORE_VEIN_MAX_SIZE.get() /2   )){
+                            if(waypoint.getPosition().getX() >= f.getMinBlockX() - (GTLibConfig.ORE_VEIN_MAX_SIZE.get() ) &&
+                                    waypoint.getPosition().getX() <= f.getMaxBlockX() + (GTLibConfig.ORE_VEIN_MAX_SIZE.get() ) &&
+                                waypoint.getPosition().getZ() >= f.getMinBlockZ() - (GTLibConfig.ORE_VEIN_MAX_SIZE.get() ) &&
+                                    waypoint.getPosition().getZ() <= f.getMaxBlockZ() + (GTLibConfig.ORE_VEIN_MAX_SIZE.get() )){
                                     return true;
                             }
                             return false;
@@ -113,28 +113,28 @@ public class CustomEvents {
                         int r = rdn.nextInt(256);
                         int g = rdn.nextInt(256);
                         int b = rdn.nextInt(256);
-                        MarkerOverlay overlay = MarkerOverlayFactory.create(
-                                JourneyImpl.CLIENT_API,
-                                vein_string.toString(),
-                                vein_string.toString(),
-                                oreVeinList.toString(),
-                                playerInteractEvent.getPos(),
-                                new Color(r,g,b).getRGB()
-                        );
-                        RockScannerMod.getOverlayData().addOverlay(player, overlay);
+//                        MarkerOverlay overlay = MarkerOverlayFactory.create(
+//                                JourneyImpl.CLIENT_API,
+//                                vein_string.toString(),
+//                                vein_string.toString(),
+//                                oreVeinList.toString(),
+//                                playerInteractEvent.getPos(),
+//                                new Color(r,g,b).getRGB()
+//                        );
+//                        RockScannerMod.getOverlayData().addOverlay(player, overlay);
 
-//                        WaypointGroup group = new WaypointGroup(RockScannerMod.MODID, "OreVeins");
+                        WaypointGroup group = new WaypointGroup(RockScannerMod.MODID, "OreVeins");
 
 
-//                        Waypoint wDirt = new Waypoint(RockScannerMod.MODID, vein_string.toString(), player.getLevel().dimension(), playerInteractEvent.getPos());
-//                        wDirt.setColor(new Color(r, g, b).getRGB());
-//                        wDirt.setGroup(group);
-//                        try {
-//                            JourneyImpl.CLIENT_API.show(wDirt);
-//                            SendMessage(player, "You found a ore vein of " + vein_string );
-//                        } catch (Exception e) {
-//                            player.sendMessage(new TextComponent(e.getMessage() == null ? "Erro desconhecido: " + e.getClass().getName() : e.getMessage()), player.getUUID());
-//                        }
+                        Waypoint wDirt = new Waypoint(RockScannerMod.MODID, vein_string.toString(), player.getLevel().dimension(), playerInteractEvent.getPos());
+                        wDirt.setColor(new Color(r, g, b).getRGB());
+                        wDirt.setGroup(group);
+                        try {
+//                            JourneyImpl.CLIENT_API.show(overlay);
+                            JourneyImpl.CLIENT_API.show(wDirt);
+                        } catch (Exception e) {
+                            RockScannerMod.LOGGER.error("{0}", e);
+                        }
                     }
                 }
             }
