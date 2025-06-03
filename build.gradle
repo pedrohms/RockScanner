@@ -178,6 +178,7 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly group: 'info.journeymap', name: 'journeymap-api', version: journeymap_api_version, changing: true
+    runtimeOnly fg.deobf("curse.maven:journeymap-${project.jm_project_id}:${project.jm_forge_file_id}")
     compileOnly("org.gt-reimagined:gt-lib:${gtlib_version}")
     compileOnly("org.gt-reimagined:tesseract-forge:${tesseract_version}")
     compileOnly("maven.modrinth:carbon-config:${project.carbon_config_forge_version}")
